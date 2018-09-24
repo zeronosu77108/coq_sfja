@@ -89,6 +89,14 @@ Definition pred (n:nat) : nat :=
 
 End Playground1.
 
+Fixpoint evenb (n:nat) : bool :=
+  match n with
+  | O => true
+  | S O => false
+  | S (S n') => evenb n'
+  end.
+
+
 Definition minustwo (n : nat) : nat :=
   match n with
     | O => O
@@ -516,3 +524,20 @@ Proof.
             reflexivity.
 Qed.
 
+
+
+(* Exercise *)
+Theorem evenb_n__oddb_Sn : forall n : nat,
+    evenb n = negb (evenb (S n)).
+Proof.
+    intros.
+    induction n as [_|n'].
+    Case "n = 0".
+        simpl.
+        reflexivity.
+    Case "n = S n'".
+        simpl.
+        rewrite -> IHn'.
+        rewrite -> negb_involutive.
+        reflexivity.
+Qed.
