@@ -558,3 +558,12 @@ Proof.
         rewrite -> IHn'.
         reflexivity.
 Qed.
+
+
+Theorem zero_nbeq_S : forall n:nat,
+    beq_nat 0 (S n) = false.
+Proof.
+    intros.
+    simpl.
+    reflexivity.
+Qed.
