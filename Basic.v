@@ -518,6 +518,8 @@ Proof.
             simpl.
             rewrite -> plus_swap.
             assert (m' + m' * n' = m' * S n').
+            (* Subgoals appear indefinitely. *)
+            (* It can't proof here. *)
                 rewrite -> _mult_comm.
                 reflexivity.
             rewrite -> H.
@@ -539,5 +541,20 @@ Proof.
         simpl.
         rewrite -> IHn'.
         rewrite -> negb_involutive.
+        reflexivity.
+Qed.
+
+
+Theorem ble_nat_refl : forall n:nat,
+    true = ble_nat n n.
+Proof.
+    intros.
+    induction n as [_|n'].
+    Case "n = 0".
+        simpl.
+        reflexivity.
+    Case "n = S n'".
+        simpl.
+        rewrite -> IHn'.
         reflexivity.
 Qed.
