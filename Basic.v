@@ -567,3 +567,18 @@ Proof.
     simpl.
     reflexivity.
 Qed.
+
+
+Theorem andb_false_r : forall b:bool,
+    andb b false = false.
+Proof.
+    intros.
+    destruct b.
+    Case "b = true".
+        simpl.
+        reflexivity.
+    Case "b = false".
+        simpl.
+        reflexivity.
+Qed.
+
