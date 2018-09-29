@@ -582,3 +582,93 @@ Proof.
         reflexivity.
 Qed.
 
+
+Theorem plus_ble_compat_l : forall n m p : nat,
+    ble_nat n m = true -> ble_nat (p + n) (p + m) = true.
+Proof.
+    intros.
+    rewrite <- H.
+    induction p as [_|p'].
+    Case "p = 0".
+        simpl.
+        reflexivity.
+    Case "p = S p'".
+        simpl.
+        rewrite -> IHp'.
+        reflexivity.
+Qed.
+
+
+Theorem S_nbeq_0 : forall n:nat,
+    beq_nat (S n) 0 = false.
+Proof.
+    intros.
+    simpl.
+    reflexivity.
+Qed.
+
+
+Theorem mult_1_l : forall n:nat,
+    1 * n = n.
+Proof.
+    intros.
+    simpl.
+    rewrite -> plus_0_r.
+    reflexivity.
+Qed.
+
+
+Theorem all3_spec : forall b c : bool,
+    orb (andb b c)
+        (orb (negb b)
+             (negb c))
+    = true.
+Proof.
+    intros.
+    destruct b.
+    Case "b = true".
+        simpl.
+        destruct c.
+        SCase "c = true".
+            simpl.
+            reflexivity.
+        SCase "c = false".
+            simpl.
+            reflexivity.
+    Case "b = false".
+        simpl.
+        reflexivity.
+Qed.
+
+
+Theorem mult_plus_distor_r : forall n m p :nat,
+    (n + m) * p = (n * p) + (m * p).
+Proof.
+    intros.
+    induction n as [_|n'].
+    Case "n = 0".
+        simpl.
+        reflexivity.
+    Case "n = S n'".
+        simpl.
+        rewrite -> IHn'.
+        rewrite -> plus_assoc.
+        reflexivity.
+Qed.
+
+
+Theorem mult_assoc : forall n m p : nat,
+    n * (m * p) = (n * m) * p.
+Proof.
+    intros.
+    induction n as [_|n'].
+    Case "n = 0".
+        simpl.
+        reflexivity.
+    Case "n = S n'".
+        simpl.
+        rewrite -> IHn'.
+        rewrite -> mult_plus_distor_r.
+        reflexivity.
+Qed.
+
